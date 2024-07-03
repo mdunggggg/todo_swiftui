@@ -51,6 +51,7 @@
 		E4918BD22C354A3900FBE9A0 /* TodoSwiftUi */ = {
 			isa = PBXGroup;
 			children = (
+				E4918BE12C354A7A00FBE9A0 /* View */,
 				E4918BD32C354A3900FBE9A0 /* TodoSwiftUiApp.swift */,
 				E4918BD52C354A3900FBE9A0 /* ContentView.swift */,
 				E4918BD72C354A3B00FBE9A0 /* Assets.xcassets */,
@@ -65,6 +66,13 @@
 				E4918BDA2C354A3B00FBE9A0 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E4918BE12C354A7A00FBE9A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
