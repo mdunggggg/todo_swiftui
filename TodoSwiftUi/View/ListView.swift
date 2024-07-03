@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items : [String] = [
-        "Do housework","Do homework", "Sleep"
+    @State var items : [ItemModel] = [
+        ItemModel(title: "Do housework", isDone: false),
+        ItemModel(title: "Do homework", isDone: false),
+        ItemModel(title: "Sleep", isDone: true)
     ]
     
     var body: some View {
         NavigationStack{
             List{
-                ForEach(items, id: \.self){ item in
-                    ListRowView(title: item)
+                ForEach(items){ item in
+                    ListRowView(item: item)
                 }
                 .onDelete(perform: { indexSet in
                     
