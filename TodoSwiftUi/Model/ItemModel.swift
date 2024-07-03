@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemModel : Identifiable{
+struct ItemModel : Identifiable, Encodable, Decodable{
     let id : String
     let title : String
     let isDone : Bool

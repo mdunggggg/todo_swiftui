@@ -8,20 +8,29 @@
 import Foundation
 
 class ListViewModel : ObservableObject{
-    @Published var items : [ItemModel] = []
+    @Published var items : [ItemModel] = [] {
+        didSet{
+            saveToDb()
+        }
+    }
+    let itemsKey = "items_list"
     
     init() {
         getItems()
     }
     
     func getItems(){
-        items.append(
-            contentsOf: [
-                ItemModel(title: "Do housework", isDone: false),
-                ItemModel(title: "Do homework", isDone: false),
-                ItemModel(title: "Sleep", isDone: true)
-            ]
-        )
+        guard let data = UserDefaults.standard.data(forKey: itemsKey) else{
+            return
+        }
+        
+        do {
+            let decodedItems = try JSONDecoder().decode([ItemModel].self, from: data)
+            self.items = decodedItems
+        }
+        catch{
+            
+        }
     }
     
     func onDelete(at index : IndexSet){
@@ -42,6 +51,16 @@ class ListViewModel : ObservableObject{
             itemModel.id == item.id
         }){
             items[index] = items[index].updateDone()
+        }
+    }
+    
+    func saveToDb(){
+        do{
+           let encodedData = try JSONEncoder().encode(items)
+            UserDefaults.standard.set(encodedData, forKey: itemsKey)
+        }
+        catch{
+            print("error when saving to db \(error)")
         }
     }
 }
