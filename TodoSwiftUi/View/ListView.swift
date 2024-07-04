@@ -13,20 +13,26 @@ struct ListView: View {
     
     var body: some View {
         NavigationStack{
-            if viewModel.items.isEmpty {
-                Text("Nothing to do")
-            }
-            List{
-                ForEach(viewModel.items){ item in
-                    ListRowView(item: item)
-                        .onTapGesture {
-                            withAnimation(.spring){
-                                viewModel.update(item: item)
-                            }
-                        }
+            ZStack {
+                if viewModel.items.isEmpty {
+                    NoItemsView()
+                        .transition(AnyTransition.opacity.animation(.easeInOut))
                 }
-                .onDelete(perform: viewModel.onDelete)
-                .onMove(perform: viewModel.onMove)
+                else {
+                    List{
+                        
+                        ForEach(viewModel.items){ item in
+                            ListRowView(item: item)
+                                .onTapGesture {
+                                    withAnimation(.spring){
+                                        viewModel.update(item: item)
+                                    }
+                                }
+                        }
+                        .onDelete(perform: viewModel.onDelete)
+                        .onMove(perform: viewModel.onMove)
+                    }
+                }
             }
             .navigationTitle("Todo List 📝")
             .toolbar(content: {
@@ -38,6 +44,7 @@ struct ListView: View {
                     NavigationLink("Add", destination: AddTodoView())
                 }
             })
+            
         }
     }
     
